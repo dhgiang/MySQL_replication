@@ -28,7 +28,7 @@ function backup_ebs () {
 }
 
 function delete_snapshots () {
-        for snapshot in $(aws ec2 describe-snapshots --filters Name=description,Values=backup-script | jq .Snapshots[].SnapshotId | sed 's/\"//g')
+        for snapshot in $(aws ec2 describe-snapshots --filters Name=description,Values=backup-script-for-slave | jq .Snapshots[].SnapshotId | sed 's/\"//g')
         do
                 SNAPSHOTDATE=$(aws ec2 describe-snapshots --filters Name=snapshot-id,Values=$snapshot | jq .Snapshots[].StartTime | cut -d T -f1 | sed 's/\"//g')
                 STARTDATE=$(date +%s)
